@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="cteate.css" />
+  </head>
+  <body>
+    <script>
+      let ha = document.createElement("h1");
+      ha.innerText = "i am h1";
+      // ha.style.color = "teal";
+      // ha.style.fontSize = "50px";
+      // ha.style.backgroundColor = "yellow";
+
+      ha.setAttribute("id", "headline");
+
+      let bod = document.querySelector("body");
+      bod.append(ha);
+
+      let circle = document.createElement("div");
+      // circle.innerHTML = "<p>i am here </p><button >Click";
+      //circle.setAttribute=('id', 'bulb');
+      circle.id="bulb"
+      //circle.style.border="2px solid green";
+
+      // let butn = circle.querySelector('button');
+      // butn.innerText='unique';
+      bod.append(circle);
+    </script>
+  </body>
+</html>

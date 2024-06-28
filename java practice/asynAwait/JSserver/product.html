@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #root{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 15px;
+            width: 80%;
+            margin: auto;
+        }
+        #root>div{
+            padding: 10px;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="admin()">Admin Page</button>
+    <div id="root"></div>
+</body>
+<script>
+    let box = document.querySelector("#root")
+
+    let admin = ()=>{
+        window.location.href="admin.html"
+    }
+
+    let getData = async (url)=>{
+        let res = await fetch(url)
+        let data = await res.json()
+        showData(data)
+        console.log(data);
+     }
+     
+    let showData = (arr)=>{
+        box.innerHTML="";
+       arr.forEach((ele,i)=>{
+         
+        let card = document.createElement("div")
+        
+        let img = document.createElement("img")
+        img.src=ele.img
+        let h2 = document.createElement("h2")
+        h2.innerText=ele.title
+        let price = document.createElement("p")
+        price.innerHTML=`<b>Price : </b>₹${ele.price}`
+
+        let deletebtn = document.createElement("button")
+        deletebtn.innerHTML="Delete🗑️"
+        deletebtn.addEventListener("click",()=>{
+            handleDelete(ele.id)
+        })
+        let updateBtn = document.createElement("button")
+        updateBtn.innerHTML="✏️Edit"
+        updateBtn.addEventListener("click",()=>{
+            handleEdit(ele.id)
+        })
+
+        card.append(img,h2,price,deletebtn,updateBtn)
+        box.append(card)
+       })
+
+    } 
+    let handleEdit=(id)=>{
+         
+    }
+
+    let handleDelete = (id)=>{
+        fetch(`http://localhost:3000/products/${id}`,{
+            method : "DELETE",
+            headers :{
+                "Content-Type"  : "application/json"
+            }
+        })
+
+    }
+    
+    getData('http://localhost:3000/products')
+</script>
+</html>

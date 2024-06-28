@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>promis proto type</h2>
+</body>
+</html>
+<script>
+
+
+
+
+
+
+    let mypromise = new Promise(function(resolve,reject){
+        setInterval(function(){
+            resolve("learing promise solved")
+        },2000)
+    })
+    console.log(mypromise)
+
+    mypromise.then(function(res){
+        console.log(res)
+    })
+    .catch(function(res){
+        console.log(res)
+    })
+
+
+    let yourpromise = new Promise(function(resolve,reject){
+        setInterval(function(){
+            reject("learing promise rected")
+        },3000)
+    })
+    console.log(yourpromise)
+    yourpromise.then(function(res){
+        console.log(res)
+    })
+    .catch(function(res){
+        console.log("its error")
+    })
+
+
+
+</script>

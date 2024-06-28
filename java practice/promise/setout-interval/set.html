@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>Time is running</h1>
+
+</body>
+<script>
+let title = document.querySelector("h1")
+
+function alarm(){
+    title.innerText="Your time is up!!"
+    title.style.color="red"
+    let body = document.querySelector("body")
+    body.append(title)
+}
+setTimeout(alarm , 3000)//calbackfun // time (ms/1s=1000ms)
+
+setTimeout(function(){
+    alert("hurry up")
+}, 4000 )
+</script>
+</html>

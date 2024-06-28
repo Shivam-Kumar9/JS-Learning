@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 70%;
+            margin:40px auto;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
+        #box>div{
+            box-shadow: 1px 1px 1px gainsboro;
+            text-align: center;
+        }
+        #box>div>img{
+            width: 70%;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+       <div id="nav">
+          <div>
+            <input type="text" placeholder="by title">
+            <button id="nav-search">🔍</button>
+           </div>
+           <div>
+            <select name="" id="nav-select">
+                <option>sort by price</option>
+                <option value="asc">Ascending</option>
+                <option value="dec">Decending</option>
+            </select>
+           </div>
+            
+           <div>
+            <form >
+                <input type="text" placeholder="title">
+                <input type="text" placeholder="image link">
+                <input type="text" placeholder="description">
+                <input type="text" placeholder="price">
+                <input type="submit" >
+            </form>
+           </div>
+
+       </div>
+    
+        <div id="box"></div>
+     
+</body>
+<script src="script.js">
+     
+
+   
+</script>
+</html>

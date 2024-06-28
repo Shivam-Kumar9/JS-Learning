@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <label >Hours:</label>       
+<input type="number" placeholder="hrs" id="hrs" min="0" value="0">
+<label >minutes:</label>   
+<input type="number"  placeholder="min" id="min" min="0" max="60" value="0">
+<label >Seconds:</label>   
+<input type="number" placeholder="sec" id="sec" min="0" max="60" value="0">
+     
+        <div>
+            <button onclick="startTimer()">play</button>
+            <button onclick="pauseTimer()">pause</button>
+            <button onclick="resetTimer()">reset</button>
+        </div>
+        
+</body>
+<script>
+    let remaintime;
+    let intervalID;
+    function startTimer(){
+
+        let hours = Number(document.querySelector("#hrs").value)
+        let minutes = Number(document.querySelector("#min").value)
+        let seconds = Number(document.querySelector("#sec").value)
+        console.log(hours,minutes,seconds)
+         
+        remaintime=(hours*3600)+ (minutes*60) + seconds
+        
+        intervalID = setInterval(function(){
+            remaintime-- ;
+          console.log(remaintime)
+            let hrs = Math.floor(remaintime / 3600)
+            let min = Math.floor((remaintime % 3600) / 60)
+            let sec = remaintime % 60;
+            
+            document.querySelector("#hrs").value=hrs
+            document.querySelector("#min").value=min
+            document.querySelector("#sec").value=sec
+
+            if(remaintime<=0){
+                clearInterval(intervalID)
+                intervalID=null;
+                alert("time is up")
+            }
+        },1000)
+    }
+
+    function pauseTimer(){
+        clearInterval(intervalID)
+        intervalID=null;
+    }
+
+    function resetTimer(){
+        pauseTimer()
+            document.querySelector("#hrs").value=0
+            document.querySelector("#min").value=0
+            document.querySelector("#sec").value=0
+    }
+</script>      
+</html>

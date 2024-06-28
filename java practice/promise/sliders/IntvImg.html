@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div{
+            width: 200px;
+            height: 300px;
+            border: 1px solid;
+        }
+        #div>img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="div"></div>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+</body>
+<script>
+    let div = document.querySelector("#div")
+    let str = document.querySelector("#start")
+    let stp = document.querySelector("#stop")
+
+    let arr= [
+    "https://picsum.photos/id/231/200/300",
+    "https://picsum.photos/id/232/200/300",
+    "https://picsum.photos/id/233/200/300",
+    "https://picsum.photos/id/234/200/300"
+    ]
+
+    let currImg = 0;
+    let img = document.createElement("img")
+    
+    function presentImg(){
+        img.src = arr[currImg]
+        div.innerHTML="";
+        div.append(img)
+    }
+    function imgauto(){
+        currImg++
+        if(currImg>=arr.length){
+           currImg = 0
+        }
+        presentImg()
+    }
+    var inter  
+    
+    str.addEventListener("click",function(){
+       if(!inter){
+         inter= setInterval(imgauto, 1000)
+       }
+       console.log("clicked")
+    })
+    stp.addEventListener("click",function(){
+       clearInterval(inter)
+       inter = null;
+    })
+
+    presentImg()
+</script>
+</html>

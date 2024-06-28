@@ -1,0 +1,15 @@
+ 
+#bul{
+    background-color: aqua;
+    padding: 10px
+}
+#headline{
+    color: rgb(219, 130, 228);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#bulb{
+    background-color: aquamarine;
+    height: 400px;
+    width: 400px;
+    
+}

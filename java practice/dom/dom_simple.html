@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <h1>shivam</h1>
+      <h1>kumar</h1>
+      <div onmouseover="console.log('onemouseover')"></div>
+      <button onclick="clicked()">&&</button> 
+</body> 
+<script>
+
+let ti = document.querySelector("h1");
+ // console.log(ti[0].innerText)
+ ti.style.backgroundColor="yellow";
+ ti.style.color="green";
+ ti.innerText="asai"
+
+ div = document.querySelector("div")
+ div.innerText='inner hidden'
+  
+ let but = document.getElementsByTagName("button");
+ function clicked(){
+    console.log( but[0].innerText="done")
+ }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

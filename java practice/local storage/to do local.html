@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="box">
+        <input type="text" placeholder="your todo name">
+        
+        <select> 
+            <option value="high">Priority</option>
+            <option value="med">High</option>
+            <option value="low">Low</option>
+        </select>
+        <button>
+            todo add
+        </button>
+    </div>
+
+    <table id="table">
+
+       <thead>
+        <th>S.No</th>
+        <th>To Do Name</th>
+        <th>Priority</th>
+        <th>Delete</th>
+       </thead>
+       <tbody>
+
+
+       </tbody>
+    </table>
+
+</body>
+<script >
+
+let todoName = document.querySelector("#box>input")
+let imp = document.querySelector("#box>select")
+let btn = document.querySelector("#box>button")
+
+let tbody = document.querySelector("#table>tbody")
+
+
+
+data = [];
+
+function saveData(){
+  
+    localStorage.setItem("Data",JSON.stringify(data))
+}
+
+function loadData(){
+    let storeValue  = JSON.parse(localStorage.getItem("Data"))
+     
+    console.log(storeValue)
+
+  if(storeValue){  //we are not passing if data is null or "" , 0 false becausse it cant use in showcaing data
+     data = storeValue  
+     showData(data)
+  }
+}
+
+function handleClick(){
+    obj={
+        title : todoName.value,
+        state : imp.value
+    } 
+    data.push(obj)
+    console.log(data)
+
+   saveData()
+   showData(data)
+}
+btn.addEventListener("click", handleClick)
+
+function showData(arr){
+    
+    tbody.innerHTML=""
+    arr.forEach(function(ele,i){
+
+        let tr = document.createElement("tr")
+
+        let td1 = document.createElement("td")
+        td1.innerHTML=`${i+1}`
+
+        let td2 = document.createElement("td")
+        td2.innerHTML=ele.title
+
+        let td3 = document.createElement("td")
+        td3.innerHTML=ele.state
+
+        if(ele.state=="high"){
+            td3.style.color="red"
+        }
+        else if(ele.state=="med"){
+            td3.style.color="blue"
+        }
+
+        let td4 = document.createElement("td")
+        let btn = document.createElement("button")
+        btn.innerHTML = "Delete"
+        btn.addEventListener("click",function(){
+            handleDelete(i)
+        })
+        td4.append(btn)
+        
+        tr.append(td1, td2, td3, td4)
+        
+        tbody.append(tr)
+    })
+}
+function handleDelete(index){
+    console.log(index)
+   
+     //  data.splice(index,1)
+    //showData(data)
+    //saveData(data)
+
+     data = data.filter(function(ele,i){
+        return index!== i ;
+    })
+    saveData()
+     showData(data)
+}
+
+loadData()
+//localStorage.clear()
+
+</script>
+</html> 

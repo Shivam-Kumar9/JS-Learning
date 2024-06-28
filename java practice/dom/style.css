@@ -1,0 +1,17 @@
+.shiv{
+    font: 1em sans-serif;
+}
+.hadline{
+    font: 1em sans-serif;
+
+}
+.bulb{
+    height: 00px;
+    width: 60%;
+    border: 2px solid rgb(114, 114, 62);
+    border-radius: 5px;
+}
+#bul{
+    background-color: aqua;
+    padding: 5px;
+}

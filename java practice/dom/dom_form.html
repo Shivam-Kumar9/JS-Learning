@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h4></h4>
+<input type="number" name="num" id="num">
+<button onclick="clic()">button</button>
+
+<button id="event">event</button>
+
+
+    
+
+<script>
+    
+// let name = prompt('What is your name?');
+// alert('Hello ' + name + '!');
+
+document.querySelector("h4").innerText='iamhere'
+let inp = document.querySelector('#num')
+inp.style.backgroundColor = "lightpink";
+
+   function clic(){
+     console.log(typeof(+inp.value)) 
+   }
+
+  let  eve = document.getElementById("event")
+  eve.innerText="sham"
+  eve.addEventListener('click',function(){
+    console.log('event function')
+  })
+  
+</script>   
+</body>
+
+</html>

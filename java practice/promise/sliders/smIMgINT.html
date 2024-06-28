@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         #box{
+            width: 200px;
+            height: 300px;
+            border: 1px solid;
+        }
+        #box>img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <button id="btn">click</button>
+</body>
+<script>
+  let screen = document.querySelector("#box")
+  let btn = document.querySelector("#btn")
+     
+  let arr= [
+    "https://picsum.photos/id/231/200/300",
+    "https://picsum.photos/id/232/200/300",
+    "https://picsum.photos/id/233/200/300",
+    "https://picsum.photos/id/234/200/300"
+    ] 
+    let currImg = 0;
+    let img = document.createElement("img")
+    
+    function presentImg(){
+        img.src = arr[currImg]
+        screen.innerHTML="";
+        screen.append(img)
+    }
+    function imgauto(){
+        currImg++
+        if(currImg>=arr.length){
+           currImg = 0
+        }
+        presentImg()
+    }
+    
+
+    let inter
+
+    function start(){
+        screen.style.backgroundColor="yellow"
+        btn.innerHTML="<p>On</p>"
+        if(!inter){
+           inter = setInterval(imgauto,1000)
+
+        }
+    }
+    function end(){
+        screen.style.backgroundColor="red";
+        btn.innerHTML="<p>Off</p>"
+        if(inter){
+            clearInterval(inter)
+           inter = null
+
+        }
+    }
+
+   let flag = false;
+   btn.addEventListener("click",function(){
+    if(!flag){
+        start();
+        flag = true;
+    }
+    else{
+        end()
+        flag = false;
+    }
+   })
+</script>
+</html>

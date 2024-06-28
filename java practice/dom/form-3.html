@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+       <input placeholder="name" type="text" name="name">
+       <input placeholder="no."  type="number" name="phno">
+       <input placeholder="yes" type="checkbox" name="box" value="agree">
+       <label for="agree">All Terms&Condition</label>
+       <input placeholder="submit" type="submit" name="submit">
+    </form>
+
+
+    <script>
+//    let  name = document.getElementsByName('name')
+//    let  phno = document.getElementsByName('phno') 
+//    let  check =document.getElementsByName('box')
+//    let  done = document.getElementsByName('submit')
+
+     let farm = document.querySelector('form').addEventListener('submit',function(){
+        event.preventDefault();
+        console.log('submited')
+     })
+
+
+    </script>
+</body>
+</html>

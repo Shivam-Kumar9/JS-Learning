@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // localStorage.setItem("kesy","these are valayes")
+
+// let val =  localStorage.getItem("kesy")
+
+// console.log(typeof val)
+
+
+
+// arr=[1,2,3,4]
+// localStorage.setItem("numArr",arr )
+
+// let ar =  localStorage.getItem("numArr")
+
+// console.log(typeof ar) 
+
+
+
+arr=[1,2,3,4]
+
+localStorage.setItem("arr",JSON.stringify(arr))
+
+let ans = JSON.parse(localStorage.getItem(("arr")))
+
+console.log(ans)
+
+
+
+arrB=[1,5,3,4]
+
+localStorage.setItem("arrS",JSON.stringify(arrB))
+
+//let vla =localStorage.getItem( JSON.parse(arrB))
+ let value =JSON.parse(arrB)
+
+console.log(value) 
+
+//localStorage.removeItem("arrB") //key 
+//localStorage.clear() // clear all
+</script>

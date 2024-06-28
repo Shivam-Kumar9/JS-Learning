@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="butto">123</button>
+    <button class="butto">i am good</button>
+    <button class="butto">ia ma not</button>
+    <button class="butto">here</button>
+    <button class="butto">to</button>
+    <button class="butto">talk</button>
+    <button class="butto">again</button>
+
+    <script>
+        let but = document.querySelectorAll('.butto')
+        //  but.style.backgroundColor='red'
+        console.log(but)
+        for(let i=0; i<but.length; i++ ){
+            but[i].style.backgroundColor="lightgreen"
+            but[i].addEventListener('click',function(){
+                console.log(but[i].innerText)
+            })
+        }
+
+    </script>
+</body>
+</html>

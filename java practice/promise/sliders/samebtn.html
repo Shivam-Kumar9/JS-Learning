@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 1px solid ;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <button id="btn">click</button>
+</body>
+
+<script>
+    let bulb = document.querySelector("#box")
+    let btn = document.querySelector("#btn")
+    
+    // let flag=false;
+    // function OnOff(){
+    //     alert()
+    //     if(flag){
+    //       bulb.style.backgroundColor="yellow"
+    //       flag = false;
+    //     }
+    //     else if (flag!=true){
+    //         bulb.style.backgroundColor="red";
+    //        flag = true;
+    //     }
+    // }
+
+    function on(){
+        bulb.style.backgroundColor="yellow"
+        btn.innerHTML="<p>On</p>"
+        
+    }
+    function off(){
+        bulb.style.backgroundColor="red";
+        btn.innerHTML="<p>Off</p>"
+    }
+    
+    let flag = false;
+    btn.addEventListener("click",function(){
+        if(flag){
+            on()
+            flag = false;
+            console.log(flag)
+        }
+        else{
+            off()
+            flag = true;
+            console.log(flag)
+        }
+        
+    })
+    
+</script>
+</html>

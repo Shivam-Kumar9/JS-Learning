@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+       //arrow fnct =>
+    //let flag = false
+     //   flag = true 
+
+    //let name = ()=>flag?"up":"down"
+    //console.log(name())
+
+   
+    // fetch(url)
+    // .then((res)=>res.json())
+    // .then((res)=>{
+    //     showData(res)
+    // })
+
+    // destructring , spreding
+
+    let player = {
+        name : "virat" ,
+        id : 1 ,
+        locationPlayer : ["delhi","mumbai"],
+        address : {
+            state : "delhi" , 
+            city : "new delhi"
+        }    
+    }
+    // [{},{}]
+    //console.log(player.address.city); no need after destructring
+
+     let { name , id , address , locationPlayer} = player
+     //console.log(locationPlayer)
+
+     let destructureFun = ({name, id , address})=>{
+          console.log(name, id , address);
+     }
+     destructureFun(player)
+
+     // we can also des struc the array but it have some flaws not make a sence 
+     let arr= [1,2,3]
+     //let [a,b,c] = arr
+     //console.log(a) // a=1 // b= 2 // c = 3
+
+     let [a,c] = arr //  c = 2 
+     // it only calculate according to index not remeber stuff
+
+       
+       // spreding 
+
+        let part1 = {
+            name : "virat",
+            age : 30
+        }
+
+        let part2 ={
+            age : 42 ,// this get appied always last one updated
+            Scity : "new delhi",
+            state : "delhi"
+        }
+
+        let fullpart = {...part1 , ...part2 ,id:2}
+        fullpart.newkey ="added"
+        console.log(fullpart);
+
+        let arr1 = [1,2,3]
+        let arr2 = [4,5,6]
+         let narr =[...arr1 , ...arr2]
+         console.log(narr);
+         // in arr order will be difrent 
+
+         ///          Object short-hand
+
+         let nome = "ram"
+         let ie  = 2
+
+         let obj = {
+             nome,  // nome : nome (no need now if both key are same)
+             ie
+         }
+
+
+</script>
+</html>

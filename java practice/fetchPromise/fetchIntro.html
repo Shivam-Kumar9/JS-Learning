@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>fetch</h2>
+</body>
+<script>
+    // let fetREturn = fetch()
+    // console.log(fetREturn)
+
+
+    let data = fetch("https://fakestoreapi.com/products") 
+    console.log(data)
+    data.then(function(res){
+        res=res.json()
+        console.log(res)
+        return res
+    })
+    .then(function(res){
+        console.log(res)
+    })
+    .catch(function(err){
+        console.log("something wrong")
+    })
+    // status  codes -> 200 -300 server is fine 
+    //                   >400 server or url have some issue    
+    
+
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        #div{
+            display: flex;
+        }
+        .time-container {
+            display: flex;
+            align-items: center;
+        }
+        .time {
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+   <div id="div">
+    <div class="time-container">
+        <div class="time" id="hours">0</div>
+        <div class="unit">Hours</div>
+    </div>
+    <div class="time-container">
+        <div class="time" id="minutes">0</div>
+        <div class="unit">Minutes</div>
+    </div>
+    <div class="time-container">
+        <div class="time" id="seconds">0</div>
+        <div class="unit">Seconds</div>
+    </div>
+   </div>
+         
+    <div>
+        <button onclick="startTimer()">Play</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+            
+</body>
+<script>
+     let incrTime = 0;
+     let intervalID;
+
+     function startTimer(){
+         intervalID = setInterval(function(){
+            incrTime++;
+
+            let hours = Math.floor(incrTime / 3600);
+            let minutes = Math.floor((incrTime % 3600) / 60);
+            let seconds = incrTime % 60;
+
+            document.getElementById("hours").innerText = hours > 0 ? hours : '';
+            document.getElementById("minutes").innerText = (hours > 0 || minutes > 0) ? minutes : '';
+            document.getElementById("seconds").innerText = seconds;
+         }, 1000);
+     }
+
+     function pauseTimer(){
+        clearInterval(intervalID);
+        intervalID = null;
+     }
+
+     function resetTimer(){
+        pauseTimer();
+        incrTime = 0;
+        document.getElementById("hours").innerText = '0';
+        document.getElementById("minutes").innerText = '0';
+        document.getElementById("seconds").innerText = '0';
+     }
+</script>
+</html>
