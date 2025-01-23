@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="item hello dumy" 
+         id="item" 
+         data-id="1"
+         data-name="vivan"
+         data-code="001"
+         svm="kumar" >Item 1</div>
+<div class="item" data-id="2">Item 2</div>
+<div class="item" data-id="3">Item 3</div>
+<div class="item" data-id="4">Item 4</div>
+<div class="item" data-id="5">Item 4</div>
+<div class="item" data-id="6">Item 6</div>
+<div class="item" data-id="7">Item 7</div>
+<div class="item" data-id="8">Item 8</div>
+    
+</body>
+</html>
+<script>
+    let bd = document.getElementsByTagName('body')
+          const it =  document.getElementById('item')
+          console.log(it.classList.contains('dumy'));
+          it.classList.add('foo')
+          it.classList.toggle('foo')
+          it.classList.toggle('foo')
+         // it.classList.remove('foo')
+          //it.classList.replace('age')
+          console.log(it.getAttribute('class'));
+          console.log(it.dataset.name);
+          it.setAttribute('SetAtt','google');
+          it.removeAttribute('setatt','google')
+          console.log(it);
+          
+
+     // class but only one 
+    //  const firstItem =  document.querySelector('.item')
+    //   console.log(firstItem);
+ 
+    //  const itemCollection = document.getElementsByClassName('item')
+    // console.log(itemCollection);
+  
+    //  const itemList = document.querySelectorAll('.item')
+    // console.log(itemList);
+
+    //  for(let item of itemList){
+    //     console.log(item);
+    //  }
+
+    //  for(let i =0; i <itemCollection.length; i++){
+    //     console.log(itemCollection[i]);
+    //     console.log('i++');
+    //  }
+     let h1 = document.createElement('h1')
+     let h1text = document.createTextNode('i am h1 ')
+     let p = document.createElement('p')
+     let ptx = document.createTextNode('this is a para grap.')
+     p.append(ptx)
+     h1.append(h1text)
+     bd[0].append(h1,p)
+</script>

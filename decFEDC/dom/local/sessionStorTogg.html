@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="togg">Toogle theme</button>
+</body>
+<script>
+    const btn = document.getElementById('togg')
+    
+    // btn.addEventListener('click',()=>{
+    //   const got =  localStorage.getItem("theme")
+    //   if(got == 'dark'){
+    //     localStorage.setItem('theme',"light")
+    //     document.body.style.backgroundColor='white'
+    //   }
+    //   else{
+    //      localStorage.setItem("theme","dark")
+    //      document.body.style.backgroundColor='black'
+    //   }
+    // })
+
+    btn.addEventListener('click',()=>{
+      const got =  sessionStorage.getItem("theme")
+      if(got == 'dark'){
+        sessionStorage.setItem('theme',"light")
+        document.body.style.backgroundColor='white'
+      }
+      else{
+         sessionStorage.setItem("theme","dark")
+         document.body.style.backgroundColor='black'
+      }
+    })
+</script>
+</html>   

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+             background-color: rgb(98, 189, 237);
+        }
+        button{
+            padding: 30px;
+            background-color: azure;
+            border-radius: 10px;
+            font-size: 40px;
+            
+        }
+        h1{
+            font-size: 60px;
+        }
+        div{
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+  <div>
+    <button id="inc" onclick="adding()">+</button>
+   <h1 id="dis">_</h1>
+   <button id="dec" onclick=" ">-</button>
+  </div>
+</body>
+<script>
+   let  add = document.querySelector("#inc")
+    let display =document.querySelector("#dis")
+    var current =0 =  display.innerText
+    console.log('typeof(current)');
+    
+    let adding = ()=>{
+       current++
+     
+      console.log(display.innerText);
+      
+    }
+    
+ 
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+      <textarea  placeholder="write note here " id="note" rows="4" cols="50"></textarea>
+      <button id="submit">Submit</button>
+      <button id="load">Load notes</button>
+      <button id="clear">Clear notes</button>
+</body>
+<script>
+    const note = document.getElementById("note");
+    const btn = document.getElementById("submit");
+
+    const display = document.getElementById("box");
+
+    const loadbtn = document.getElementById("load");
+    const clear = document.getElementById("clear");
+
+
+     btn.addEventListener('click',()=>{
+        let notes = note.value.trim()
+        // console.log(notes);
+        localStorage.setItem('notes',notes)
+         note.value = '' 
+     })
+  
+    loadbtn.addEventListener('click',()=>{
+       const savednote =  localStorage.getItem("notes")
+       console.log(savednote);
+        const msg = document.createElement("h2")
+       msg.innerText =  savednote? savednote : "no data registed"
+       display.appendChild(msg)
+    })  
+    clear.addEventListener('click',()=>{
+        localStorage.clear()
+        display.innerHTML="";
+    })
+
+    // localStorage.clear()
+</script>
+</html>

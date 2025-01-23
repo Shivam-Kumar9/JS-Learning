@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .complete {
+        text-decoration: line-through;
+        color: rgb(170, 170, 170);
+      }
+      #display {
+        border: 2px solid black;
+        min-width: 200px;
+        margin: 10px;
+        height: 100px;
+        text-align: center;
+        align-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="taskinput" placeholder="write task" />
+    <select id="status">
+      <option value="started">Incomplete</option>
+      <option value="ended">Complete</option>
+    </select>
+    <button id="addbtn">Add task</button>
+    <ul id="ul"></ul>
+
+    <input type="text" name="" id="search" search placeholder="search task" />
+    <div id="display"></div>
+  </body>
+  <script>
+    const ul = document.getElementById("ul");
+    const taskinput = document.getElementById("taskinput");
+    const statusinp = document.getElementById("status");
+    const addTaskbtn = document.getElementById("addbtn");
+
+    const search = document.getElementById("search");
+    const display = document.getElementById("display");
+
+    window.addEventListener("DOMContentLoaded", () => {
+      let firstload = JSON.parse(localStorage.getItem("tasks")) || [];
+      if (firstload) {
+        tasks = firstload;
+      }
+      render(firstload);
+    });
+
+
+    search.addEventListener("change", (event) => {
+      let valchange = event.target.value.trim();
+      let found = tasks.filter((ele) => {
+        return valchange.toLowerCase() === ele.task.toLowerCase();
+      });
+
+      if (found.length > 0) {
+        render(found);
+        display.innerText = "Available you can see it on top";
+      } else display.innerText = "No matching tasks found.";
+    });
+
+
+    let tasks = [];
+    
+    
+    let count = 0;
+    addTaskbtn.addEventListener("click", () => {
+      let inpValue = taskinput.value.trim();
+
+      if (inpValue) {
+
+        const statusVal = statusinp.value;
+
+        const workingORnot = () => {
+          if (statusVal == "started") {return true;} 
+          else { return false; }
+        };
+
+        const makingID = () => ++count;
+        const idCreation = makingID();
+
+        let obj = { task: inpValue,
+                    Id: idCreation,
+                    status: workingORnot() 
+                  };
+                  
+        tasks.push(obj);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        render(tasks);
+
+        taskinput.value = "";
+
+      } else {alert("enter valid task");}
+    });
+
+
+    function render(tasks = task) {
+      ul.innerHTML = "";
+
+      if (tasks.length > 0) {
+
+        tasks.forEach((ele, i) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<span class='${ele.status ? "" : "complete"}'>${ele.task}</span>
+                            <button  onclick="removebtn(${i})">remove</button>
+                            <button class="btnstatus" onclick="status(${i})">${ele.status ? "Marked Incomplete" : "Marked complete"}</button>
+                           `;
+          ul.appendChild(li);
+        });
+
+      } 
+      else {
+        const li = (document.createElement("li").innerText =
+          "No previes tasks");
+        ul.appendChild(li);
+      }
+    }
+
+    
+    function status(index) {
+      //const updateStatus = JSON.parse(localStorage.getItem('tasks'))
+      tasks[index].status = !tasks[index].status;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      render(tasks);
+    }
+
+    function removebtn(id) {
+      tasks.splice(id, 1);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      render(tasks);
+    }
+  </script>
+</html>

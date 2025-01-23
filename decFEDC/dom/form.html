@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Preference form</h1>
+   <form id="preferenceForm">
+    <label for="theme">Theme:</label>
+    <select   id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+
+    <label for="language">Langauge:</label>
+    <select  id="language">
+        <option value="eng">English</option>
+        <option value="esp">Spanish</option>
+    </select>
+    <button type="submit">Save Preference</button>
+   </form>
+   <br>
+   <button id="clearPreference">clear Preference</button>
+</body>
+<script>
+    let form = document.querySelector("#preferenceForm")
+
+    let selectTheme = document.getElementById("theme")
+    let selectLang = document.getElementById("language")
+
+    let clearpref = document.querySelector("#clearPreference")
+      
+    window.addEventListener('DOMContentLoaded',()=>{
+       let savedtheme = localStorage.getItem('theme')
+       let savedlang  = localStorage.getItem("lang")
+
+        //console.log(savedlang , savedtheme ,'windo');
+       if(savedtheme){
+        selectTheme.value = savedtheme
+        document.body.style.backgroundColor=savedtheme === 'dark'? 'black': 'white';
+        if(savedtheme== 'dark') document.body.style.color = "white";
+       }
+       if(savedlang){
+        selectLang.value = savedlang
+        }
+      
+    })
+      clearpref.addEventListener('click',()=> localStorage.clear())
+
+      form.addEventListener('submit',(event)=>{
+           event.preventDefault()
+           let currtheme = selectTheme.value;
+           let currlang = selectLang.value;
+           
+           localStorage.setItem("theme",currtheme)
+           localStorage.setItem("lang",currlang)
+           document.body.style.backgroundColor=currtheme === 'dark'? 'black': 'white';
+           if(currtheme== 'dark'){
+            let blink = false
+             if(blink){
+                blink = false
+                setInterval(()=>{
+               document.body.style.color = "white";
+             },1000)
+             }
+             else{
+                blink = true
+                setInterval(()=>{
+               document.body.style.color = "white";
+             },1000)
+             }
+
+           }
+           if(currtheme== 'light') document.body.style.color = "black";
+           
+      })
+          
+</script>
+</html>

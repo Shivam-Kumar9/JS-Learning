@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .inp {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="inp">
+      <input type="text" id="inputtext" placeholder="Search movie with name" />
+      <button id="btn">submit</button>
+    </div>
+    <div class="display"></div>
+    <img src="" alt="" />
+  </body>
+  <script>
+    const inputSearch = document.getElementById("inputtext");
+    const inputbtn = document.getElementById("btn");
+    const display = document.getElementsByClassName("display")[0];
+
+    inputbtn.addEventListener("click", () => {
+      const value = inputSearch.value.trim();
+      console.log(value);
+      //search(value);
+      fetchedData(value)
+    });
+
+     const fetchedData = async (input)=>{
+        try {
+            const respose = await fetch(`http://www.omdbapi.com/?apikey=440b5c5a&t=${input}`)
+            const data    = await respose.json()
+            render(data); 
+        } catch (error) {
+           console.log(error);  
+        }
+     }
+ 
+
+    // function search(input) {
+    //   fetch(`http://www.omdbapi.com/?apikey=440b5c5a&t=${input}`)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       render(data);
+    //       // console.log(data.Poster);
+    //     })
+    //     .catch((error) => console.log(error));
+    // }
+    
+
+    function render(data) { 
+      display.innerHTML = ""; 
+      let src1 = data.Poster;
+      let movie = data.Title;
+      let year = data.Released;
+      let desc = data.Plot;
+
+      let img = document.createElement("img");
+      img.src = src1;
+      let head = document.createElement("h1");
+      head.innerText = movie;
+      let release = document.createElement("h3");
+      release.innerText = year;
+      let plot = document.createElement("p");
+      plot.innerText = desc;
+      display.append(img, head, release, plot);
+    }
+  </script>
+</html>

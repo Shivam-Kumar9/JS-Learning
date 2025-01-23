@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        nav{
+            background-color:greenyellow ;
+            padding: 12px;
+            font-size: large;
+            height: 25px;
+        }
+        .man:hover .opt{
+         display: block;
+        }
+        .opt{
+            display: none;
+            min-width: fit-content;
+           
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+            max-width:100px ;
+            background-color: rgb(171, 94, 0);
+        }
+        ul li{
+            padding: 5px;
+         }
+        ul li:hover{
+             background-color: rgb(252, 177, 2);
+            cursor: pointer;
+        }
+    </style>
+ 
+</head>
+<body>
+    <nav>
+        <div class="man">
+          Main
+          <div class="opt">
+             <ul>
+                <li>black</li>
+                <li>white</li>
+                <li>blue</li>
+             </ul>
+          </div>
+       </div>
+    </nav>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const savedtheme = sessionStorage.getItem("theme")
+        render(savedtheme)
+
+    })
+   
+
+    const black = document.querySelector(".opt>ul:first-child") 
+    black.addEventListener("click",(event)=>{
+        if(event.target.tagName==='LI'){
+            let clickedLi= event.target.textContent
+            sessionStorage.setItem("theme",clickedLi)
+            render(clickedLi)
+             
+
+        }
+
+    })
+
+    function render(colorli){
+        document.body.style.background=colorli;
+            if ( colorli === 'black')  document.body.style.color= 'white'  
+            // if( colorli === 'blue')  document.body.style.color= 'red'
+                  if( colorli === 'white')  document.body.style.color= 'black'
+  
+                                      }
+//    localStorage.clear()
+  </script>
+</html>

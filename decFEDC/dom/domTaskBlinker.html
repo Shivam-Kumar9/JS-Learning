@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<input type="text" name="task" value="test">
+<button type="submit" id="btn">submit</button>
+<ol id="ol">
+
+</ol>
+</body>
+<script>
+const inptext = document.getElementsByName('task')
+ const btn= document.getElementById('btn')
+const ol = document.getElementById('ol')
+ 
+ btn.addEventListener('click',()=>{
+    let value = inptext[0].value
+    const li = document.createElement('li')
+    li.innerText = value 
+    
+    const complete = document.createElement('button')
+    complete.innerText = `Incomplete` 
+    
+    
+    complete.addEventListener('click',()=>{
+        li.style.textDecoration = li.style.textDecoration=== ""?  'line-through' :""
+        complete.innerText = li.style.textDecoration=== 'line-through'? 'complete' : 'Incomplete'
+    })
+
+    const del = document.createElement('button')
+      del.innerText='❌'
+      del.addEventListener('click',()=>{
+        let isred =false
+        setInterval(()=>{
+            if(isred){
+                li.style.backgroundColor= 'yellow'
+                isred = false
+            }
+            else{
+                li.style.backgroundColor= 'red'
+                isred = true
+                
+            }
+                 
+        },400)
+        
+        setTimeout(()=>{
+            ol.removeChild(li)
+         },3000)
+    })
+
+    li.appendChild(complete)
+    li.appendChild(del)
+    ol.appendChild(li)
+ })
+
+  </script>
+</html>
