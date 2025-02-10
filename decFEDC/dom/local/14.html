@@ -1,70 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <form id="preferencesForm">
-        <label for="theme">Theme:</label>
-        <select id="theme">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      
-        <label for="language">Language:</label>
-        <select id="language">
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
-        </select>
-      
-        <label for="notifications">Notifications:</label>
-        <input type="checkbox" id="notifications">
-      
-        <button type="submit">Save Preferences</button>
-      </form>
-      
-      <script>
-        const form = document.getElementById('preferencesForm');
-        const theme = document.getElementById('theme');
-        const language = document.getElementById('language');
-        const notifications = document.getElementById('notifications');
-      
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const preferences = {
-            theme: theme.value, 
-            language: language.value,
-            notifications: notifications.checked
-          };
-          render(theme.value)
-          localStorage.setItem('preferences', JSON.stringify(preferences));
-          alert('Preferences Saved!');
-        });
-       
-        window.onload = () => {
-          const preferences =  localStorage.getItem('preferences');
-          if (preferences) {
-            const { theme:th, language:lang, notifications:not } = JSON.parse(preferences);
-            //console.log(theme, language, notifications ," i m");
-            theme.value = th;
-            language.value = lang;
-            notifications.checked = not;
-            render(th)
-          }
-        };
-        
-        function render(data){
-           if (data=='light') {document.body.style.backgroundColor='white'
-           document.body.style.color='black'
-           }
-           if (data=='dark') {document.body.style.backgroundColor='black'
-               document.body.style.color='white'
-           }
-        
-        }
+    <style>
+      #root {
+        padding: 10px;
+        border: 1px solid;
+        width: 50%;
+      }
+      .cards {
+        margin: 10px;
+        padding: 5px;
+        background: rgb(138, 225, 138);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="InOut"></div>
+    <div id="root">
+      <!-- root -->
+    </div>
+    <script>
+      const root = document.querySelector("#root");
+      const InOut = document.querySelector("#InOut");
 
-      </script>
-</body>
+      let data = [
+        { itemName: "Laptop", price: 1000 },
+        { itemName: "Mouse", price: 20 },
+        { itemName: "Keyboard", price: 50 },
+        { itemName: "cpu", price: 8000 },
+      ];
+
+      function rendercart() {
+        root.innerHTML = "";
+
+        const productNodes = data.map(({ itemName: item, price: rate }) => {
+          const card = document.createElement("div");
+          card.className = "cards";
+
+          const name = document.createElement("h3");
+          name.innerText = `${item}`;
+
+          const price = document.createElement("div");
+          price.innerHTML = `<i>Price: </i>${rate}`;
+
+         const allcarts = JSON.parse(localStorage.getItem('cart')) || {}
+         const person = JSON.parse(localStorage.getItem("UserName"))
+         const personcart = allcarts[person] || []
+         const isAvailable = personcart.find(ele=> ele.itemName === item )
+        
+           const btndiv= document.createElement('div')
+
+                  
+         if (isAvailable) {
+          const realindex = personcart.findIndex(ele=> ele.itemName === item )
+          const add = document.createElement("button");
+          add.innerText = "+";
+          add.addEventListener("click",()=>{
+            personcart[realindex].quantity++;
+             // console.log(isAvailable.quantity);
+             const updatecart = {...allcarts,[person]:personcart}
+             localStorage.setItem('cart',JSON.stringify(updatecart))
+             rendercart()
+          })
+
+          const remove = document.createElement("button");
+          remove.innerText = "-";
+
+          remove.addEventListener("click",()=>{
+            personcart[realindex].quantity--;
+            console.log(personcart[realindex].quantity);
+            if (personcart[realindex].quantity===0) {
+              personcart.splice(realindex,1)
+              const updatecart = {...allcarts,[person]:personcart}
+              localStorage.setItem('cart',JSON.stringify(updatecart))
+              rendercart() 
+            }
+            const updatecart = {...allcarts,[person]:personcart}
+             localStorage.setItem('cart',JSON.stringify(updatecart))
+             rendercart()
+          })
+
+          const count = document.createElement('span')
+          console.log(isAvailable.quantity);
+          count.innerText=`${isAvailable.quantity}`
+          
+          btndiv.append(remove,count,add)
+          
+         } 
+         else {
+          const button = document.createElement("button");
+          button.innerText = "add to cart";
+          button.addEventListener("click",()=>{
+              personcart.push({itemName:item,price:rate,quantity:1})
+              const updatecart = {...allcarts,[person]:personcart}
+             localStorage.setItem('cart',JSON.stringify(updatecart))
+             rendercart()
+          })
+          btndiv.append(button)
+         }
+
+          
+          card.append(name, price, btndiv);
+
+          
+          return card;
+        });
+        root.innerHTML = "";
+        root.append(...productNodes);
+      }
+
+      function renderLogin() {
+       InOut.innerHTML = "";
+        const input = document.createElement("input");
+        input.placeholder = "User name";
+
+        const button = document.createElement("button");
+        button.innerText = "Login";
+
+        button.addEventListener("click", () => {
+          let userName = input.value.trim();
+          if (userName) {
+            localStorage.setItem("UserName", JSON.stringify(userName));
+            renderLogout();
+            rendercart();
+          } else {
+            alert("retry");
+          }
+        });
+        InOut.innerHTML = "";
+        InOut.append(input, button);
+      }
+      function renderLogout() {
+        InOut.innerHTML = "";
+        const button = document.createElement("button");
+        button.innerText = `Logout`;
+        button.addEventListener("click", () => {
+          localStorage.removeItem("UserName");
+          renderLogin();
+          root.innerHTML=''
+        });
+
+        InOut.innerHTML = "";
+        InOut.append(button);
+      }
+
+      if (JSON.parse(localStorage.getItem("UserName"))) {
+        renderLogout();
+        rendercart();
+      } else {
+        renderLogin();
+      }
+    </script>
+  </body>
 </html>

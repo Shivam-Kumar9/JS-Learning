@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        table{
+            border: 1px solid;
+            padding: 10px;
+        }
+        th,td{
+            border:1px dashed;
+            min-width: 100px;
+        } 
+        #pagination{
+            margin: 5px;
+            border: 1px solid;
+            padding:4px;
+            display: flex;
+            justify-content: center;
+        }
+        .pageBlock{
+            border: 2px solid;
+            padding: 5px 10px;
+            margin: 5px;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>Advance database</h1> -->
+    <div id="pagination"></div>
+     <div id="functionality">
+        <label for="">sort by time :
+            <select name="sort" id="time">
+                <option value="" disabled selected>select order</option>
+                <option value="Open">open</option>
+                <option value="In Progress">in progress</option>
+                <option value="Closed">closed</option>
+                <option value="0" style="background-color: red;">High </option>
+                <option value="1" style="background-color: orange;">medium</option>
+                <option value="2" style="background-color: yellow;">low</option>
+
+            </select>
+        </label>
+       
+     </div>
+    <div id="display">
+    </div>
+    
+    <dialog id="boxDialog">
+         <form method="dialog">
+            <p>Add here</p>
+            <button>Close dailog</button>
+         </form>
+    </dialog>
+</body>
+<script src="./script.js"></script>
+</html>

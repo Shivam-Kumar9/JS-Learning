@@ -1,59 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-   <div id="main">
-    <div id="login"></div>
-    <div id="logout"></div>
+    <style>
+        #root{ padding: 10px; border: 1px solid; width: 50%;}
+         .cards{
+          margin: 10px;
+          padding: 5px;
+          background: rgb(138, 225, 138);
+          text-align: center;
+         }
+    </style>
+  </head>
+  <body>
+    <div id="InOut">
+      
+    </div>
+    <div id="root">
+      <!-- root -->
    </div>
     <script>
-                const root =document.getElementById('main')
-        const divlogin =document.getElementById('login')
-        const divlogout =document.getElementById('logout')
-       
-        
-       function loginfun(){
-      //  root.innerHTML=''
-        const Inplogin =document.createElement('input')
-        const Btnlogin =document.createElement('button')
-              Btnlogin.innerText='login'
-              
-              divlogin.append(Inplogin,Btnlogin)
-              
-            
-            Btnlogin.addEventListener('click',()=>{
-                const inputuser = Inplogin.value.trim()
-                console.log(inputuser);
-                   console.log(inputuser);
-                   localStorage.setItem('isUserlogin',inputuser)
-                   // call logout
-                   logoutfun()
-               })
-        }
- 
-        function logoutfun(){
-             const userAvi = localStorage.getItem('isUserlogin')
+    const root = document.querySelector("#root")
+     const InOut = document.querySelector("#InOut")
+    
+    let data = [{ "itemName": "Laptop", "price": 1000 },
+               { "itemName": "Mouse", "price": 20 },
+               { "itemName": "Keyboard", "price": 50 },
+               { "itemName": "cpu", "price": 8000 }  ]
 
-            const outBtn = document.createElement('button')
-            outBtn.innerText='logout'
+    function rendercart(){
+     root.innerHTML=''
+       const productNodes =  data.map((ele)=>{
+          const {itemName:item,price:rate} =ele;
+          const divCards = document.createElement('div')
+          divCards.className='cards'
+
+          const name= document.createElement('h3')
+          name.innerText=`${item}`
+
+          const price= document.createElement('div')
+          price.innerHTML=`<i>Price: </i>${rate}`
+
+          
+          const cartdiv= document.createElement('div')
+           
+          //Item  catch check
+          const allcarts = JSON.parse(localStorage.getItem('cart')) || {}
+          const User = JSON.parse(localStorage.getItem('UserName'))
+          const Usercart = allcarts[User] || []
+          const itemSeleted = Usercart.find(ele=> ele.itemName===item)
+          
+          if (itemSeleted) {
+            const itemIndex = Usercart.findIndex(ele=> ele.itemName===item)
+            const remove = document.createElement('button')
+                  remove.innerText=`-`
+             remove.addEventListener('click',()=>{
+                    //console.log('--');
+                    Usercart[itemIndex].quantity--;
+                    Usercart[itemIndex].price=Usercart[itemIndex].quantity*rate
+                    console.log(Usercart[itemIndex].price=Usercart[itemIndex].quantity*rate)
+                    
+                    if( Usercart[itemIndex].quantity===0){
+                      Usercart.splice(itemIndex,1)
+                    }
+                    const updatedCart = {...allcarts,[User]:Usercart}   
+                    localStorage.setItem('cart',JSON.stringify(updatedCart))
+
+                    rendercart()
+
+                    // else{
+                    //   localStorage.setItem('cart',JSON.stringify(updatedCart))
+                      
+                    //   rendercart()
+                    // }
+
+                      
+                   })
             
-            if(userAvi.length>0){
-                 divlogin.innerHTML=''
-                divlogout.appendChild(outBtn)
-               outBtn.addEventListener('click',()=>{
-               localStorage.removeItem('isUserlogin')
-               divlogout.remove(outBtn)
-                 loginfun()
-               })
+            const add = document.createElement('button')
+                  add.innerText=`+`
+                  add.addEventListener('click',()=>{
+                    //console.log('++');
+                    Usercart[itemIndex].quantity++;
+                    Usercart[itemIndex].price=Usercart[itemIndex].quantity*rate
+                    console.log(Usercart[itemIndex].price=Usercart[itemIndex].quantity*rate)
+
+
+                    const updatedCart = {...allcarts,User:Usercart}
+                    localStorage.setItem('cart',JSON.stringify(updatedCart))
+                    
+                    rendercart()
+                   })
+             
+            const quality = document.createElement('span')   
+                  quality.innerText=`${itemSeleted.quantity}`
+              
+                   
+                  cartdiv.append(remove,quality,add)
                 
-            }
-        } 
 
-        loginfun()
-     </script>
-</body>
+          } else {
+            const button= document.createElement('button')
+                  button.innerText='Add to cart'
+                  button.addEventListener('click',()=>{
+                    Usercart.push( {itemName:item,price:rate,quantity:1}) 
+               const updatedCart = {...allcarts,[User]:Usercart}   
+               localStorage.setItem('cart',JSON.stringify(updatedCart))  
+             
+               // render in-side a button listner otherwise it loop endless
+               rendercart()
+                  })
+                  //  root.innerHTML=''
+                  cartdiv.appendChild(button)
+          }
+          
+          
+          divCards.append(name, price,cartdiv)
+          
+          return divCards
+        })
+        
+        root.append(...productNodes)
+      
+    }
+
+
+    function renderLogin(){
+      const input = document.createElement('input')
+      input.placeholder='User name'
+       
+      const button = document.createElement('button')
+      button.innerText='Login'
+
+      button.addEventListener('click',()=>{
+        let userName = input.value.trim()
+         if (userName) {
+          localStorage.setItem('UserName',JSON.stringify(userName))
+         renderLogout()
+         rendercart()
+         } else {
+          alert('retry')
+         }
+       })
+       InOut.innerHTML=''
+       InOut.append(input,button)
+    }
+      function renderLogout(){
+        const button = document.createElement('button')
+        button.innerText=`Logout`
+       button.addEventListener('click',()=>{
+          localStorage.removeItem('UserName')
+          renderLogin()
+       })
+
+       InOut.innerHTML=''
+       InOut.append(button)
+      }
+
+    
+
+
+
+
+ 
+      if(localStorage.getItem('UserName')){
+        renderLogout()
+        rendercart()
+      }
+      else{ 
+        renderLogin();
+      }
+    </script>
+  </body>
 </html>

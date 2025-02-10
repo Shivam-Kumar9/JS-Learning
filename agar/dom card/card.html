@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function factoryCard(heading,p){
+            let card =document.createElement('div')
+               card.className='card'
+             let h3 =document.createElement('h3')
+             let h3node = document.createTextNode(heading)
+             h3.appendChild(h3node)
+
+             let p =document.createElement('p')
+             let pnode = document.createTextNode(p)
+             p.append(pnode)
+
+             card.append(h3,p)
+             return card
+
+             document.body.append()
+            }
+       factoryCard("Card1",'this is first card')  
+       
+    </script>
+</body>
+</html>

@@ -1,26 +1,136 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+     <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#sorting{
+    padding: 15px;
+}
+select{
+    padding: 5px;
+    width: 50%;
+    text-align: center;
+}
+
+#display{margin: 10px;
+    display:grid;
+    grid-template-columns: repeat(1,1fr);
+    gap: 10px;
+}
+.card{
+    border: 1px solid ;
+    padding: 10px;
+    overflow: hidden;
+    line-height: 30px;
+    border-radius: 5px;
+}
+.card:hover{
+    box-shadow: rgba(104, 124, 147, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+ }
+
+.imgdiv{
+    width: 200px;
+    /* border: 1px solid; */
+    margin: 10px auto;
+}
+img{
+    max-width: 100%;
+}
+
+.p_mid,h3{
+    text-align: center;
+}
+
+@media (min-width:600px) {
+   #display{
+    grid-template-columns: repeat(3,1fr);
+   }
+}
+
+@media (min-width:1000px) {
+    #display{
+     grid-template-columns: repeat(4,1fr);
+    }
+ }
+     </style>
 </head>
 <body>
-    
+    <div id="sorting"></div>
+    <div id="display"></div>
+   
+    <script >
+        const divselect = document.getElementById("sorting");
+const display = document.getElementById("display");
+
+const fetched = async (url) => {
+  try {
+    const res = await fetch(url);
+  const data = await res.json();
+  render(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+fetched("https://fakestoreapi.com/products");
+
+// function sorter() {
+  const select = document.createElement("select");
+  select.className
+  select.innerHTML = `        
+        <option value=""selected disabled>--Select Cetegory--</option>
+        <option value="men's clothing" >Mens section♂️</option>
+        <option value="jewelery">Jewelery 💍</option>
+        <option value="electronics">Electronics 🔌</option>
+        <option value="women's clothing">Women section♀️</option>
+        <option value="all cetegory">All Category</option>`;
+
+  select.addEventListener("change", (e) => {
+     let picked = e.target.value;
+    picked === "all cetegory"?(fetched(`https://fakestoreapi.com/products`)): fetched(`https://fakestoreapi.com/products/category/${picked}`)
+  });
+  divselect.appendChild(select)
+
+
+function render(data) {
+    display.innerHTML=''
+  const productNode = data.map(
+    ({ title, price, description, category, image }) => {
+      const card = document.createElement("div");
+      card.classList = "card";
+
+      const Title = document.createElement("div");
+      Title.innerHTML = `<h3>${title}</h3>`;
+      
+      const Price = document.createElement("div");
+      Price.innerHTML = `<p class='p_mid'><b>Price : </b> <i>${price}</i>$</p>`;
+
+      const Description = document.createElement("div");
+      Description.innerHTML = `<p><b>Info : </b>${description}</p>`;
+
+      const imgdiv = document.createElement("div");
+      imgdiv.className='imgdiv'
+      const img = document.createElement("img");
+      img.src = `${image}`;
+      imgdiv.append(img);
+
+      card.append(imgdiv,Title,Price,Description)
+      return card
+    });
+    display.append(...productNode)
+}
+
+ 
+
+    </script>
+     
 </body>
-<script>
- 
-
-let arr  =  [{task: 'dinner', Id: 1, status: 'started'},
-             {task: 'angor', Id: 2, status: 'started'}
-            ,{task: 'dinner', Id: 4, status: 'started'}
-            ,{task: 'travel', Id: 5, status: 'started'}]
-
- 
-
- arr.splice(3,1)
- 
-console.log(arr);
-
-</script>
 </html>

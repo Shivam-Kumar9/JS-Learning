@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dil{
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <dialog class="dil">
+        <h1>this is modals</h1>
+        <button>close</button>
+    </dialog>
+    <button class="btn" >click for form</button>
+</body>
+<script>
+    let dialog = document.querySelector('dialog')
+    let open = document.querySelector('dialog + button')
+    // remember this sibling only (+) only select when it is after that element 
+    // if it is before it will give null
+    let close = document.querySelector('dialog')
+    
+    open.onclick=function(){
+        dialog.showModal()
+    }
+     
+    close.onclick=()=>{
+        dialog.close()
+    }
+     console.log(open);
+ </script>
+</html>
