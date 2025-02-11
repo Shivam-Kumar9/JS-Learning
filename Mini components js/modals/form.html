@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple modal &css</title>
+    <style>
+        .dil{
+            border: none;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+             padding: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+             border-radius: 5px;
+         }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #close{
+           display: inline-flex;
+           justify-content: end;
+           align-items: center;
+           padding: 5px;
+           border:1px solid;
+           border-radius: 5px;
+        }
+        input{
+            border: none;
+            margin: 10px;
+            outline: #0056b3;
+            border-bottom:1px solid;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <dialog class="dil">
+
+        <div id="close">❌</div>
+        <form action="">
+          <div class="form_div">
+            <label for="name">Name : </label>
+            <input type="text"  id="name" placeholder="enter name" value="shivam">
+            <br>
+
+            <label for="subject">subject : </label>
+            <input type="text"  id="subject" placeholder="enter subject" value="i am on picnic.">
+            <br>
+            <label for="phone">phone : </label>
+            <input type="number"  id="phone" placeholder="enter phone" value="987121212">
+            <br>
+
+            <button type="submit">submit</button>
+           </div>
+        </form>
+       
+    </dialog>
+    <button class="btn" >click for form</button>
+</body>
+<script>
+    let dialog = document.querySelector('dialog')
+    let open = document.querySelector('.btn')
+    let close = document.querySelector('#close')
+    let form = document.querySelector('form')
+    
+    let name = document.querySelector('#name')
+    let subject = document.querySelector('#subject')
+    let number = document.querySelector('#phone')
+
+    form.addEventListener('submit',(e)=>{
+         console.log(e);
+         let short = e.target
+        e.preventDefault()
+        let obj ={ names : name.value , reason : subject.value , contact : number.value}
+        console.log(obj);
+        console.log(short);
+        // alert('form sucessfully submited')
+        
+        setTimeout(() => {
+            alert('form sucessfully submitted')
+        }, 1000);
+        dialog.close()
+    })
+
+
+
+    open.onclick=function(){
+        dialog.showModal()
+    }
+    close.onclick=()=>{
+        dialog.close()
+    }
+   //  console.log(close);
+ </script>
+</html>
+ 
+<!-- 
+ set time out ki place per normal 
+-->

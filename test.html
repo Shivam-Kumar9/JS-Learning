@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Alert</title>
+    <style>
+        /* Basic Modal Styling */
+        .custom-alert {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #007bff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .custom-alert button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .custom-alert button:hover {
+            background-color: #0056b3;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    <div class="custom-alert">
+        <p id="alert-message">This is a custom alert!</p>
+        <button id="alert-ok">OK</button>
+    </div>
+
+    <button id="trigger-alert">Show Custom Alert</button>
+
+    <script>
+        // Get elements
+        const overlay = document.querySelector('.overlay');
+        const customAlert = document.querySelector('.custom-alert');
+        const alertMessage = document.querySelector('#alert-message');
+        const alertOkButton = document.querySelector('#alert-ok');
+        const triggerAlertButton = document.querySelector('#trigger-alert');
+
+        // Show custom alert
+        function showCustomAlert(message) {
+            alertMessage.textContent = message;
+            overlay.style.display = 'block';
+            customAlert.style.display = 'block';
+        }
+
+        // Hide custom alert
+        function hideCustomAlert() {
+            overlay.style.display = 'none';
+            customAlert.style.display = 'none';
+        }
+
+        // Trigger the custom alert when the button is clicked
+        triggerAlertButton.onclick = function() {
+            showCustomAlert('Hii! This is a custom alert!');
+        };
+
+        // Hide the alert when OK is clicked
+        alertOkButton.onclick = hideCustomAlert;
+
+        // Optionally, hide the alert if the overlay is clicked
+        overlay.onclick = hideCustomAlert;
+    </script>
+
+</body>
+</html>
