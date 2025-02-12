@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create UI With React API</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" ></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+import { useState } from "react";
+import { useRef } from "react";
+
+ 
+
+function App() {
+  const [product, setProduct] = React.useState({ item: "", quantity: "" });
+  const [array, setArray] = React.useState([]);
+  const dialogRef = useRef(null);
+
+  function open() {
+    dialogRef.current.showModal();
+  }
+  function close() {
+    dialogRef.current.close();
+  }
+  function fullInfo(e) {
+    e.preventDefault();
+     if(product.item.trim() === ''){
+      alert('Enter item name')
+      return;
+     }
+     if(Number(product.quantity) === 0 || Number(product.quantity) <0 ){
+      alert('Enter valid quantity (eg : 1 ,2)')
+      return;
+     }
+    
+
+    setArray(pev=>[...pev,{...product,id:pev.length+1}])
+    console.log(product)
+    console.log(array);
+    //dialogRef.current.close();
+  }
+
+  function removeItem(key){
+    console.log(key)
+     let newarray = array.filter(ele => ele.id !== key);
+     setArray(newarray);
+  }
+
+  function empty(){
+    setArray([])
+  }
+  return (
+    <>
+      <dialog ref={dialogRef}>
+        <div className="Add_modal_title">
+          <h3>Add item</h3>
+          <button onClick={close}>❌</button>
+        </div>
+
+        <form
+          onSubmit={(e) => {
+            fullInfo(e);
+          }}
+        >
+          <label htmlFor="Item">
+            Item :{" "}
+            <input
+              type="text"
+              value={product.item}
+              onChange={(e) => setProduct({ ...product, item: e.target.value })}
+            />
+          </label>
+          <br />
+          <label htmlFor="Quantity">
+            Quantity :{" "}
+            <input
+              type="number"
+              value={product.quantity}
+              onChange={(e) =>
+                setProduct({...product, quantity: e.target.value })
+              }
+            />
+          </label>
+          <br />
+          <button type="submit">Submit</button>
+        </form>
+      </dialog>
+      <button onClick={open}>add item</button>
+       
+      <button onClick={empty}>remove all </button>
+
+      <div className="Display">
+        {!array.length
+           ?
+          <h1>No items to display</h1>
+          :
+          array.map(({item,quantity,id})=>{
+            return (<div key={id}>
+              <h4>{item}</h4>
+               <p>Price :{quantity}kg</p>
+               <button onClick={()=>{removeItem(id)}}>🗑️delete</button>
+            </div>)
+          })}
+      </div>
+    </>
+  );
+}
+
+ 
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+
+  </script>
+</html>
+
+ 

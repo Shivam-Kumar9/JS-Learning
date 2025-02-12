@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<!--  react , remove , modal , sort by propority , change fav, filter function 
+ -->
+
+
+<!-- 
+import { useState , useRef } from 'react'
+ 
+import './App.css'
+
+function App() {
+  const [inputTask, setInputTask] = useState({title :"",priority:"",status:''})
+  const [arrOf, setArrOf] = useState([
+    
+  ]
+  )
+
+  const [Fstatus, setFstatus] = useState('')
+  const [Fneed, setFneed] = useState('')
+   const dialogRef = useRef(null);
+ 
+  let closeDialog=()=> dialogRef.current.close()
+
+  function handleSubmit(e){
+    e.preventDefault()
+    const updatearray =  [...arrOf,{...inputTask,id:Date.now()}]
+          console.log(updatearray)   // this also mutated because sort mutate orignal array  ( this should be unorganised)
+ 
+    let DisplayValue  = {high : 3, medium : 2, low : 1}
+     
+    let displayshort = updatearray.sort((a,b)=>{
+      let first = DisplayValue[a.priority];
+     let secnd =  DisplayValue[b.priority];
+     return (secnd- first)
+    })
+     
+    console.log('this short',displayshort)
+    
+     
+     setArrOf(updatearray)
+     
+      
+    // alert('item added')
+  }
+  
+  const remove = (i)=>{
+    console.log(i)
+    let newdata = arrOf.filter(ele=> ele.id !== i)
+    console.log(newdata)
+    setArrOf(newdata)
+  }
+  const ChangeStatus = (rat)=>{
+    console.log(rat)
+    
+    let newStatusArray = arrOf.map(ele=>{
+      if(ele.id == rat){
+        return {...ele,status : !ele.status}
+      }
+      else return ele
+    })
+    console.log(newStatusArray)
+    setArrOf(newStatusArray)
+  }
+  
+  // const filterStatus = (e)=>{
+  //   let value = e.target.value
+  //    setFstatus(value)
+  //      console.log(value)
+  //   let newdata = arrOf.filter(ele=>{
+  //     if(value == "Incomplete"){
+  //       console.log("in con")
+  //       return ele.status === false
+  //     }
+  //     if(value == "Completed"){
+  //       console.log("com con")
+  //       return ele.status === true
+  //     }
+  //     else return ele
+  //   })
+  //      console.log(newdata)
+  //      setArrOf(newdata)   
+  // }
+  // const filterPriority = (e)=>{
+  //   let value = e.target.value
+  //   setFneed(value)
+  //   console.log(value)
+  //   let newdata = arrOf.filter(ele=> ele.priority == value)
+  //   console.log(newdata)
+  //   setArrOf(newdata)  
+
+  // }
+  
+    const filtering = arrOf.filter(ele=>{
+    if (Fstatus === "Completed") return ele.status === true;
+    if (Fstatus === "Incomplete") return ele.status === false;
+    return true; // No filter applied  
+  }).filter(ele=> (Fneed? ele.priority == Fneed : true))
+ 
+  return (
+    <>
+     <dialog ref={dialogRef}>
+      <form onSubmit={(e)=>handleSubmit(e)}>
+        <div className='form_title_closebtn'><b>Add Task</b> <div onClick={closeDialog}>❌</div></div>
+        <label htmlFor="title">Title 
+          <input type="text" value={inputTask.title} onChange={(e)=>setInputTask({...inputTask,title:e.target.value})} />
+        </label><br />
+        <label htmlFor="Priority">Priotity : 
+           <select   value={inputTask.priority || ''}  onChange={(e)=>setInputTask({...inputTask,priority:e.target.value})} >
+            <option value="" disabled>Select Priority</option>
+            <option value='high'>High</option>
+            <option value='medium'>Medium</option>
+            <option value="low">Low</option>
+           </select>
+        </label><br />
+        <label htmlFor="complete">Is completed: 
+          <input type="checkbox"   value={inputTask.status} onChange={(e)=>setInputTask({...inputTask,status:e.target.checked})}/>
+        </label><br />
+        <input type="submit" />
+      </form>
+     </dialog>
+
+     <button onClick={()=>{dialogRef.current.showModal()}}>Add task</button>
+
+     <label htmlFor="filter">Filter with  : 
+      <select  value={Fneed || ''}  onChange={(e)=>setFneed(e.target.value)} >
+            <option value="" disabled>Choose Priority</option>
+            <option value='high'>High</option>
+            <option value='medium'>Medium</option>
+            <option value="low">Low</option>
+     </select>
+     </label>
+     
+     <label htmlFor="filter">Filter with : 
+      <select  value={Fstatus || ''}  onChange={ (e)=>setFstatus(e.target.value)} >
+            <option value="" disabled>Choose status</option>
+            <option value='All'>All task</option>
+            <option value='Completed'>Completed task</option>
+            <option value="Incomplete">Incomplete task</option>
+     </select>
+     </label>
+
+     {
+      
+      !filtering.length? 
+           <h1> Add tasks to be displayed</h1>
+           :
+           filtering.map((ele,i)=>{
+            const {title ,priority,status,id}= ele
+            return( <div className='card' style={priority == 'high'? {backgroundColor:'tomato'} : null} key={id}>
+             <h5>{i+1}</h5>
+             <h3>{title}</h3>
+             <p>Priority : <b>{priority}</b></p>
+             <p>Status : {status?"completed":'Incomplete'}</p>
+             <div className='render_btns_div'><button onClick={()=>{ChangeStatus(id)}}>Change status🔀</button><button onClick={()=>{remove(id)}}>🗑️delete</button></div>
+            </div>)
+           })
+     }
+    </>
+  )
+}
+
+export default App
+
+
+-->

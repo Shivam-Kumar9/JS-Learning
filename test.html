@@ -1,89 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Alert</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping List</title>
     <style>
-        /* Basic Modal Styling */
-        .custom-alert {
-            display: none; /* Initially hidden */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border: 1px solid #007bff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
             padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
             border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .custom-alert button {
-            background-color: #007bff;
-            color: white;
+
+        .btn {
+            padding: 8px 16px;
             border: none;
-            padding: 10px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.2s;
         }
-        .custom-alert button:hover {
-            background-color: #0056b3;
+
+        .btn-primary {
+            background-color: #0066ff;
+            color: white;
         }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        dialog {
+            border: none;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        dialog::backdrop {
             background-color: rgba(0, 0, 0, 0.5);
-            display: none; /* Initially hidden */
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .item-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
         }
     </style>
 </head>
 <body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        function App() {
+            const [product, setProduct] = React.useState({ item: "", quantity: "" });
+            const [array, setArray] = React.useState([]);
+            const dialogRef = React.useRef(null);
 
-    <div class="overlay"></div>
-    <div class="custom-alert">
-        <p id="alert-message">This is a custom alert!</p>
-        <button id="alert-ok">OK</button>
-    </div>
+            function open() {
+                dialogRef.current.showModal();
+                setProduct({ item: "", quantity: "" }); // Reset form
+            }
 
-    <button id="trigger-alert">Show Custom Alert</button>
+            function close() {
+                dialogRef.current.close();
+                setProduct({ item: "", quantity: "" }); // Reset form
+            }
 
-    <script>
-        // Get elements
-        const overlay = document.querySelector('.overlay');
-        const customAlert = document.querySelector('.custom-alert');
-        const alertMessage = document.querySelector('#alert-message');
-        const alertOkButton = document.querySelector('#alert-ok');
-        const triggerAlertButton = document.querySelector('#trigger-alert');
+            function fullInfo(e) {
+                e.preventDefault();
+                if (product.item.trim() === '') {
+                    alert('Please enter an item name');
+                    return;
+                }
+                if (Number(product.quantity) <= 0) {
+                    alert('Please enter a valid quantity (greater than 0)');
+                    return;
+                }
 
-        // Show custom alert
-        function showCustomAlert(message) {
-            alertMessage.textContent = message;
-            overlay.style.display = 'block';
-            customAlert.style.display = 'block';
+                setArray(prev => [...prev, { ...product, id: Date.now() }]);
+                close();
+            }
+
+            function removeItem(key) {
+                setArray(array.filter(ele => ele.id !== key));
+            }
+
+            function empty() {
+                if (window.confirm('Are you sure you want to remove all items?')) {
+                    setArray([]);
+                }
+            }
+
+            return (
+                <div className="container">
+                    <div className="header">
+                        <button className="btn btn-primary" onClick={open}>Add Item</button>
+                        {array.length > 0 && (
+                            <button className="btn btn-danger" onClick={empty}>Remove All</button>
+                        )}
+                    </div>
+
+                    <dialog ref={dialogRef} onCancel={close}>
+                        <div className="modal-header">
+                            <h3>Add Item</h3>
+                            <button className="close-btn" onClick={close}>×</button>
+                        </div>
+                        <div className="modal-content">
+                            <form onSubmit={fullInfo}>
+                                <div className="form-group">
+                                    <label htmlFor="item">Item Name:</label>
+                                    <input
+                                        id="item"
+                                        type="text"
+                                        value={product.item}
+                                        onChange={(e) => setProduct({ ...product, item: e.target.value })}
+                                        placeholder="Enter item name"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="quantity">Quantity (kg):</label>
+                                    <input
+                                        id="quantity"
+                                        type="number"
+                                        value={product.quantity}
+                                        onChange={(e) => setProduct({ ...product, quantity: e.target.value })}
+                                        placeholder="Enter quantity"
+                                        min="0"
+                                        step="0.1"
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Add Item</button>
+                            </form>
+                        </div>
+                    </dialog>
+
+                    {array.length === 0 ? (
+                        <div className="empty-state">
+                            <h2>No items to display</h2>
+                            <p>Click "Add Item" to get started</p>
+                        </div>
+                    ) : (
+                        <div className="items-grid">
+                            {array.map(({ item, quantity, id }) => (
+                                <div key={id} className="item-card">
+                                    <div className="item-header">
+                                        <h3>{item}</h3>
+                                        <button className="close-btn" onClick={() => removeItem(id)}>×</button>
+                                    </div>
+                                    <p>Quantity: {quantity} kg</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
         }
 
-        // Hide custom alert
-        function hideCustomAlert() {
-            overlay.style.display = 'none';
-            customAlert.style.display = 'none';
-        }
-
-        // Trigger the custom alert when the button is clicked
-        triggerAlertButton.onclick = function() {
-            showCustomAlert('Hii! This is a custom alert!');
-        };
-
-        // Hide the alert when OK is clicked
-        alertOkButton.onclick = hideCustomAlert;
-
-        // Optionally, hide the alert if the overlay is clicked
-        overlay.onclick = hideCustomAlert;
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
     </script>
-
 </body>
 </html>
