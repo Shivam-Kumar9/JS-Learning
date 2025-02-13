@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create UI With React API</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+
+  <script type="text/babel">
+    function Btn() {
+      const [inp, setInp] = React.useState("");
+      const [store, setStore] = React.useState(null);
+      const [loading, setloading] = React.useState(false);
+      const [notFound, setnotFound] = React.useState(null);
+
+      function handleMovie() {
+        setloading(true);
+        axios
+          .get(`http://www.omdbapi.com/?apikey=440b5c5a&t=${inp}`)
+          .then((res) => {
+            if (res.data.Response == "False") {
+              setnotFound(res.data.Error);
+              return;
+            }
+            setStore(res.data);
+          })
+          .catch((err) => console.log(err))
+          .finally(() => setloading(false));
+      }
+
+      React.useEffect(() => {
+        handleMovie();
+      }, []);
+
+      console.log(store);
+      return (
+        <>
+          <input
+            type="text"
+            value={inp}
+            onChange={(e) => setInp(e.target.value)}
+          />
+          <button onClick={handleMovie}>Search</button>
+
+          {loading && <h3>loading...</h3>}
+
+          {store && store.Response !== "False" ? (
+            <div>
+              <h2>{store.Title}</h2>
+              <p>Year: {store.Year}</p>
+              <p>Genre: {store.Genre}</p>
+              <p>Director: {store.Director}</p>
+              <img src={store.Poster} alt="Movie Poster" width="200" />
+            </div>
+          ) : (
+            <h6>{notFound}</h6>
+          )}
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<Btn />);
+  </script>
+</html>
+
+<!-- 
+  fetch(`http://www.omdbapi.com/?apikey=440b5c5a&t=${inp}`)
+      .then(res=>res.json())
+       .then(data=>console.log(data))
+       .catch(err=>console.log(err))
+      .finally(console.log("loading...")) 
+-->

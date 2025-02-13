@@ -41,15 +41,15 @@
      }
  
 
-    // function search(input) {
-    //   fetch(`http://www.omdbapi.com/?apikey=440b5c5a&t=${input}`)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       render(data);
-    //       // console.log(data.Poster);
-    //     })
-    //     .catch((error) => console.log(error));
-    // }
+    function search(input) {
+      fetch(`http://www.omdbapi.com/?apikey=440b5c5a&t=${input}`)
+        .then((res) => res.json())
+        .then((data) => {
+          render(data);
+          // console.log(data.Poster);
+        })
+        .catch((error) => console.log(error));
+    }
     
 
     function render(data) { 
