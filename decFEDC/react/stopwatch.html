@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus With React ref</title>
+  </head>
+  <body>
+    <div id="root"></div> 
+  </body>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" ></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+
+// issue   1. click start  2. then click stop .  ===> these work fine 
+//             when u click start again it will just  ==>  you will see the count will not start (if (catched.current) return )
+function Btn() {
+      const catched = React.useRef(null)
+      const [count , setCount] = React.useState(0)
+     
+    const start =()=>{
+        if(catched.current){
+            console.log('jada smart ho raha bc');
+            return 
+          }
+     catched.current =  setInterval(() => {
+         setCount(p=>p+1);
+      }, 1000)
+    }
+    const stop =()=>{
+
+    clearInterval(catched.current)
+      
+    }
+    const reset =()=>{
+        stop()
+        setCount(0)
+    }
+  return (<div>
+     <h1>{count}</h1>
+      <button onClick={start}>start</button>
+      <button onClick={stop} >{count?"stop":'Invalid'}</button>
+      <button onClick={reset}>{count?"reset":'Invalid'}</button>
+
+     </div>);
+}
+
+ 
+ReactDOM.createRoot(document.getElementById("root")).render(<Btn/>);
+
+  </script>
+</html>

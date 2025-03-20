@@ -1,34 +1,47 @@
-<!DOCTYPE html>
+
+
+
+  <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Focus With React ref</title>
+    <title>Create UI With React API</title>
   </head>
   <body>
-    <div id="root"></div> 
+    <div id="root"></div>
   </body>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" ></script>
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script type="text/babel">
 
-
+ 
+ 
 function Btn() {
   
-     const catched = React.useRef(null)
-    
-    React.useEffect(()=>{
-      catched.current.focus()
-    })
-    
+ 
+//     const ref = React.useRef(0);
+   
+//     React.useEffect(() => {
+//       ref.current++;
+//     });
+//   console.log( ref.current);
+//   console.log("ref.current");
+
+//     return (<h1>Current: {ref.current}</h1>)
   
-  return (<div>
-     <h1> best Form</h1>
-     <form onSubmit={(e)=>e.preventDefault()}>
-        inp
-      </form>
-     </div>);
+ 
+  const count = React.useRef(0);
+
+  const increment = () => {
+    count.current++;
+    console.log(count.current);
+  };
+
+  return <button onClick={increment}>Click Me</button>;
+
+
 }
 
  

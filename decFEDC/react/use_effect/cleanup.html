@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Focus With React ref</title>
+    <title>Create UI With React API</title>
   </head>
   <body>
     <div id="root"></div> 
@@ -16,19 +16,30 @@
 
 function Btn() {
   
-     const catched = React.useRef(null)
-    
-    React.useEffect(()=>{
-      catched.current.focus()
-    })
-    
+
+  const [count, setCount] = React.useState(0)
   
-  return (<div>
-     <h1> best Form</h1>
-     <form onSubmit={(e)=>e.preventDefault()}>
-        inp
-      </form>
-     </div>);
+ function  cleaup(interId){
+       setTimeout(()=>{
+        console.log('stop time');
+        clearInterval(interId);
+       },6000)
+       };
+
+   React.useEffect(()=>{
+      const interId = setInterval(() => {
+        console.log('start');
+        setCount(prev=>prev+1)
+      // setCount(count+1)
+         console.log();
+       }, 1000);
+
+       return cleaup(interId)
+
+   },[])
+
+  return (<><h1>{count}</h1>
+     </>);
 }
 
  

@@ -25,9 +25,11 @@ function App() {
   function open() {
     dialogRef.current.showModal();
   }
+
   function close() {
     dialogRef.current.close();
   }
+  
   function fullInfo(e) {
     e.preventDefault();
      if(product.item.trim() === ''){

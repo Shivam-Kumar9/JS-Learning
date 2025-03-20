@@ -4,28 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+
+         }
+         .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 20px; /* Space between cards */
+  display: flex;
+  flex-direction: column;
+}
+.card > *{
+  margin: 4px;
+} 
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+    </style>
 </head>
 <body>
-    
-    <script>
-        function factoryCard(heading,p){
-            let card =document.createElement('div')
-               card.className='card'
-             let h3 =document.createElement('h3')
-             let h3node = document.createTextNode(heading)
-             h3.appendChild(h3node)
-
-             let p =document.createElement('p')
-             let pnode = document.createTextNode(p)
-             p.append(pnode)
-
-             card.append(h3,p)
-             return card
-
-             document.body.append()
-            }
-       factoryCard("Card1",'this is first card')  
-       
-    </script>
+    <div class="card-list"></div>
 </body>
+<script>
+     
+// Function to create and return a card element
+function createCard(user) {
+
+    let card = document.createElement("div");
+    let cardTitle = document.createElement("h3");
+    let cardContent = document.createElement("p");
+    let userId = document.createElement("small");
+    let anchor = document.createElement('a')
+    let lableIsCheck = document.createElement('lable')
+    let isActive = document.createElement('input')
+
+   card.className = "card";
+   card.setAttribute('data-name',user.name)
+   card.setAttribute("data-id",user.id)
+ 
+  
+  cardTitle.textContent = user.name;
+  cardContent.textContent = user.description;
+  userId.textContent = `ID: ${user.id}`;
+  anchor.href='#'
+  anchor.innerText = 'say hello'
+  anchor.addEventListener('click',(e)=>{
+     e.preventDefault()
+    let targetEle= e.target 
+    let closestBox = targetEle.closest('.card')
+    let name =  closestBox?.getAttribute('data-name')
+    let id =  closestBox?.getAttribute("data-id")
+
+  console.log(`hello, from ${name} (ID:${id})`)
+  })
+  
+  lableIsCheck.textContent='Active : '
+  isActive.type = 'checkbox'
+  isActive.checked = user.isActive
+  isActive.addEventListener('change',(e)=>{
+    //console.log(isActive.checked);
+    console.log(e)
+    user.isActive= isActive.checked   // this mutate the value of array 
+  })
+  lableIsCheck.append(isActive)
+
+  
+  card.appendChild(cardTitle);
+  card.appendChild(cardContent);
+  card.appendChild(userId);
+  card.appendChild( anchor)
+  card.appendChild(lableIsCheck)
+   return card;
+}
+
+const users = [
+  { id: 1, name: "John Doe", description: "Loves hiking and outdoor adventures.", isActive: true },
+  { id: 2, name: "Jane Smith", description: "Enjoys painting and reading.", isActive: false },
+  { id: 3, name: "Sam Wilson", description: "Avid traveler and coffee enthusiast.", isActive: true }
+];
+
+ let cardList = document.querySelector('.card-list');
+
+ 
+users.forEach(data=>{
+  cardList.append(createCard(data))
+})
+
+const btn = document.createElement('button')
+btn.innerText='submit'
+btn.addEventListener('click',()=>{
+  console.log(users)
+})
+
+document.body.append(btn)
+</script>
 </html>

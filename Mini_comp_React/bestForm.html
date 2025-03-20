@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus With React ref</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <!-- Use latest React and Babel versions -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.21.4/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      const [formData, setFormData] = React.useState({});
+      const [entries, setEntries] = React.useState([]);
+
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+      };
+     
+      const handleSubmit = (e) => {
+          e.preventDefault();
+        if(!formData.name   && !formData.email && !formData.pin){
+            
+            alert('hii') 
+            return;
+        }
+        setEntries(prev => [...prev, { ...formData, status: false }]); 
+        setFormData({});  // Clear form after submission
+        
+    };
+    
+    console.log(entries);
+      return (
+        <div className="App">
+          <h1>Best Form</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name || ""}
+              onChange={handleChange}
+            />
+            <br />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email || ""}
+              onChange={handleChange}
+            />
+            <br />
+            <input
+              type="password"
+              name="pin"
+              placeholder="PIN"
+              value={formData.pin || ""}
+              onChange={handleChange}
+              maxLength="4"
+            />
+            <br />
+            <button type="submit">Submit</button>
+          </form>
+          
+          {/* Display submitted entries */}
+          <div>
+            <h2>Entries:</h2>
+            <ul>
+              {entries?.map((entry, index) => (
+                <li key={index}>
+                  {entry.name} - {entry.email} - {entry.pin}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
+    // Render the app using React 18's createRoot
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</html>
+
+
+
+<!-- import { useState } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [get, setGet] = useState({});
+  const [arr, setArr] = useState([]);
+
+  const makearr = () => {
+    setArr((prev) => [...prev, { ...get, status: false }]);
+    console.log(arr);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setGet((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log();
+    makearr();
+    // setGet({});
+  };
+  return (
+    <div className="App">
+      <h1>best form</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="name"
+          value={get.name || ""}
+          onChange={handleChange}
+        />
+        <br />
+        <input
+          type="text"
+          name="email"
+          placeholder="email"
+          value={get.email || ""}
+          onChange={handleChange}
+        />
+        <br />
+        <input
+          type="password"
+          name="pin"
+          placeholder="pin"
+          value={get.pin || ""}
+          onChange={handleChange}
+          maxLength="4"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+} -->
