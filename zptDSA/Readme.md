@@ -1,3 +1,6 @@
+#  just random
+
+
 Q2.a (Array):
 Write a function that takes an array of numbers and returns a new array where each element is squared.
 
@@ -62,3 +65,22 @@ js
 Copy
 Edit
 { apple: "a", banana: "b", cherry: "c" }
+
+///////////////////
+
+Q5.a (Array):
+Write a function that finds the second largest number in an array.
+
+Example Input: [10, 5, 20, 8, 15]
+Example Output: 15
+
+Q5.b (Object):
+Write a function that counts the occurrences of each character in a given string and returns an object with character frequencies.
+
+Example Input: "hello"
+Example Output:
+
+js
+Copy
+Edit
+{ h: 1, e: 1, l: 2, o: 1 }
