@@ -36,3 +36,27 @@ findSecondLargest([10, 5, 20, 8, 15]);
 Do not use sort().
 Solve using a single loop for efficiency (O(n)).
 Assume the array has at least two unique numbers.
+
+
+
+Q3.a (Array) – Remove Duplicates from an Array
+Problem Statement:
+Write a function that takes an array of numbers and returns a new array with duplicates removed while maintaining the original order.
+
+📌 Example Input:
+
+js
+Copy
+Edit
+removeDuplicates([1, 2, 2, 3, 4, 4, 5]);
+📌 Expected Output:
+
+js
+Copy
+Edit
+[1, 2, 3, 4, 5]
+✅ Constraints:
+
+Solve using O(n) time complexity (Single loop).
+Do not use new Set() (Implement manually).
+Maintain the original order of elements.
