@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="dis">
+         
+    </div>
+    <button onclick="back()">prev</button>
+    <button onclick="forw()">next</button>
+</body>
+<script>
+    let display=  document.querySelector('.dis')
+    console.log(display)
+    let wall = [
+          'https://picsum.photos/id/231/200/300', 
+          'https://picsum.photos/id/232/200/300', 
+          'https://picsum.photos/id/233/200/300',  
+          'https://picsum.photos/id/234/200/300',     
+]
+    
+     let curr  = 0 ;
+       show()
+     function show(){
+        display.innerHTML= `<img src=${wall[curr]} alt="sa">`
+     }
+    setInterval(() => {
+         forw()
+    }, 4000);
+
+     function back() {
+        console.log("back")
+        curr--
+        if(curr <0 ){
+           curr = wall.length-1  
+        }
+        show()
+     }
+     function forw(){
+      console.log("for")
+      curr++
+      if(curr >wall.length-1){
+           curr = 0
+        }
+        show()
+     }
+         
+</script>
+</html>
