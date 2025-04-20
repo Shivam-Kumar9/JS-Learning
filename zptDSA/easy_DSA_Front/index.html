@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+  //  let  num 
+  //  do{
+  //   let get  = prompt('num guesss') 
+  //    num = Number(get)
+  //  }while(num!=7)
+  // console.log("object")
+
+
+//   let units = Number(prompt('enter units'))
+//   let amount = 0;
+//   if(units>400){
+//     amount =(units-400)*13
+//     units = 400
+//   }
+//   if(units>200 && units <=400){
+//     amount += (units -200)*8
+//     units = 200
+//   }
+//   if(units>100 && units <=200){
+//     amount += (units -100)*6
+//     units = 100
+//   }
+//   amount+= units*4
+// console.log(amount)
+
+let money =  321
+console.log(money)
+let notes = {500 : 0 ,
+   200 : 0, 
+   100:0 , 
+   50: 0 , 
+   20: 0 ,
+   10 : 0 ,
+    rest :0 }
+ if(money >=500){
+    notes[500] = Math.floor(money/500 )
+   money = money%500
+ }   
+ if(money >=200 && money <500){
+  notes[200] = Math.floor(money/200 )
+  money = money%200
+ }
+ if(money >=100 && money <200){
+  notes[100] = Math.floor(money/100 )
+  money = money%100
+ }
+ if(money >=50 && money <100){
+  notes[50] = Math.floor(money/50 )
+  money = money%50
+ }
+  notes.rest = money
+   console.log(notes)
+
+ 
+
+</script>
+</html>

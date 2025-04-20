@@ -1,6 +1,15 @@
+// Q3.a (Array) – Remove Duplicates from an Array
+// Problem Statement:
+// Write a function that takes an array of numbers and returns a new array with duplicates removed while maintaining the original order.
 
-
-
+// 📌 Example Input:
+// removeDuplicates([1, 2, 2, 3, 4, 4, 5]);
+// 📌 Expected Output: 
+// [1, 2, 3, 4, 5]
+// ✅ Constraints:
+// Solve using O(n) time complexity (Single loop).
+// Do not use new Set() (Implement manually).
+// Maintain the original order of elements.
 (function removeDuplicates(arr){
  
     const isthere = {}

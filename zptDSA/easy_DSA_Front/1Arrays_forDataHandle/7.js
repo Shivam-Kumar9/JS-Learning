@@ -5,7 +5,7 @@
 
 // Expected Output: [3, 4, 5]
 
-(function commonNum(a,b){
+(function commonNum(a,b){   ////      O(n)^2
  
     let common  = []
     for(let i=0; i<a.length;i++){
@@ -35,3 +35,20 @@
  
  console.log(common)
  })([1, 2, 3, 4, 5], [3, 4, 5, 6, 7])
+
+
+
+ // best O(n)
+
+ (function inter(a,b){
+    let int = []
+    const obj = {}
+  for(let num of a) obj[num] = true ; 
+  for(let bnum of b){
+    if(obj[bnum]){
+      int.push(bnum)
+      obj[bnum] = false
+    }
+  }console.log(obj)
+  console.log(int)
+})([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]  )

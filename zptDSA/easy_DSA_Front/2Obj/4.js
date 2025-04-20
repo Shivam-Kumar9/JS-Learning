@@ -3,16 +3,8 @@
 // Write a function that swaps the keys and values of an object.
 
 // 📌 Example Input:
-
-// js
-// Copy
-// Edit
 // swapKeysValues({ a: "apple", b: "banana", c: "cherry" });
 // 📌 Expected Output:
-
-// js
-// Copy
-// Edit
 // {
 //   apple: "a",
 //   banana: "b",

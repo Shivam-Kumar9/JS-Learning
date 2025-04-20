@@ -3,19 +3,12 @@
 // Write a function that finds the most frequent character in a given string. Ignore spaces.
 // opy
 // 📌 Example Input:
-
- 
 // findMostFrequentChar("javascript is fun");
 // 📌 Expected Output:
-
- 
 // { character: "a", frequency: 2 }
 // ✅ Constraints:
-
 // Solve in O(n) time complexity.
-
 // Use an object to store frequency.
-
 // Ignore spaces.
 
 (function findMostFrequentChar(str){

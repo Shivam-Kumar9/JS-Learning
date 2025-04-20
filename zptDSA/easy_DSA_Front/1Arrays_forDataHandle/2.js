@@ -28,6 +28,21 @@
     console.log(second)
    })([10, 5, 20, 8, 15])
 
+// ❌ First Approach: Inefficient (O(n²)) and does not return the correct answer.
+// ✅ Second Approach: Efficient (O(n)) and correctly finds the second largest number.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    let temp = order[i]
 //    order[i] = order[k]
@@ -42,5 +57,3 @@
 
 
 // Final Verdict
-// ❌ First Approach: Inefficient (O(n²)) and does not return the correct answer.
-// ✅ Second Approach: Efficient (O(n)) and correctly finds the second largest number.
